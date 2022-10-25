@@ -1,9 +1,9 @@
 <template>
 
   <div class="card-header">
-    <h6>Edit Info</h6>
+    <h6>Edit Information</h6>
     <form class="login">
-      <input type="email" required placeholder="E-mail" v-model="accounts.email">
+      <input  type="email" required placeholder="E-mail" v-model="accounts.email">
 
       <input type="password" required placeholder="Password" v-model="accounts.password" />
 
@@ -11,7 +11,7 @@
 
       <input type="text" required placeholder="description" v-model="accounts.description" />
 
-      <button class="submit" type="submit" @click.prevent="onSubmit">submit</button>
+      <button class="submit" type="submit" @click.prevent="onSubmit">Save</button>
     </form>
 
   </div>
@@ -47,13 +47,13 @@ export default {
     updatedData: function () {
       if (this.updatedData !== null && !this.isUpdating) {
         this.$swal.fire({
-          text: "Success, Product has been updated successfully !",
+          text: "Success, Information has been updated successfully !",
           icon: "success",
           position: "top",
           timer: 1000,
         });
 
-        this.$router.push({ name: "Products" });
+        this.$router.push({ name: "info" });
       }
     },
   },
@@ -77,8 +77,8 @@ export default {
         url: this.accounts.url,
         description: this.accounts.description,
         id: this.$route.params.id
-
       });
+      this.$router.push({ name: "Info" });
     },
     updateProductInputAction(e) {
       this.updateProductInput(e);

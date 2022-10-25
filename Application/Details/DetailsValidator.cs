@@ -14,6 +14,7 @@ namespace Application.Users
             RuleFor(x => x.Email).EmailAddress().NotEmpty();
             RuleFor(x=> x.Url).NotEmpty();
             RuleFor(x=>x.Description).NotEmpty();
+            RuleFor(x=>x.Password).NotEmpty();
         }
     }
 }
