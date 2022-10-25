@@ -1,8 +1,6 @@
-using System.Security.Claims;
 using API.DTOs;
 using API.DTOS;
 using API.Services;
-using Application.Users;
 using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -21,10 +19,12 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly ILogger<AccountController> _logger;
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-         TokenService tokenService, IMapper mapper)
+         TokenService tokenService, IMapper mapper, ILogger<AccountController> logger)
         {
+            _logger = logger;
             _mapper = mapper;
             _signInManager = signInManager;
             _userManager = userManager;
@@ -34,6 +34,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(loginDto loginDto)
         {
+            _logger.LogInformation("Account Login..");
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
             if (user == null) return Unauthorized();
 
@@ -50,6 +51,8 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(registerDto registerDto)
         {
+            _logger.LogInformation("Account Register..");
+
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
                 return BadRequest("Email Taken");
@@ -72,13 +75,6 @@ namespace API.Controllers
                 return CreateUserObject(user);
             }
             return BadRequest("Problem Registering User");
-        }
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
-        {
-            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
-            return CreateUserObject(user);
         }
 
 

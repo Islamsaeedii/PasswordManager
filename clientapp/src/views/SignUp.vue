@@ -1,22 +1,29 @@
 <template>
     <div class="container">
         <h4 class="header">Log In</h4>
-        <form  class="login">
+        <form class="login">
             <input type="email" placeholder="E-mail" v-model="email">
 
             <input type="password" placeholder="Password" v-model="password" />
 
+
             <input type="text" placeholder="Name" v-model="name" />
 
             <input type="text" placeholder="User Name" v-model="username" />
-          
+            <div>
+                <strong id="passwordfont">*Password must be Complex</strong>
+            </div>
+
             <button class="submit" type="submit" @click.prevent="onSubmit">submit</button>
         </form>
         <div class="register">
-            <p>Don't have an account? <router-link to="/signIn">Sign In</router-link>
+            <p>Already have account? <router-link to="/signIn">Sign In</router-link>
             </p>
         </div>
+
+
     </div>
+
 </template>
     
 <script>
@@ -25,12 +32,12 @@ import axios from 'axios';
 
 export default {
 
-    data(){
-        return{
-            notification:'bbbbbbbbb'
+    data() {
+        return {
+            notification: 'bbbbbbbbb'
         }
     },
-    created(){
+    created() {
 
     },
     methods: {
@@ -42,19 +49,10 @@ export default {
                 displayName: this.username
             })
                 .then(function () {
-                    alert("successfuuly")
-                    // this.notification=response;
-                    // this.$swal
-                    //     .fire({
-                    //         text: "Are you sure to delete the product ?",
-                    //         icon: "error",
-                    //         showCancelButton: true,
-                    //     })
+                    alert("Successfully")
                 })
                 .catch(function () {
-                    // this.notification='error';
                     alert("error")
-                  
                 });
 
 
@@ -142,6 +140,11 @@ export default {
     color: red;
     font-size: 14px;
     font-weight: 500;
+}
+
+#passwordfont {
+    font-size: small;
+    margin-left: 0%;
 }
 </style>
     

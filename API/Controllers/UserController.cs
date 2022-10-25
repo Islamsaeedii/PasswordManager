@@ -11,10 +11,16 @@ namespace API.Controllers
 {
     public class UserController : BaseApiController
     {
-        [AllowAnonymous]
+        private readonly ILogger<UserController> _logger;
+        public UserController(ILogger<UserController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserInfoDto>> GetUser(string id)
         {
+            _logger.LogInformation("Get the User by Id");
             return HandleResult(await Mediator.Send(new User.Query { Id = id }));
         }
     }

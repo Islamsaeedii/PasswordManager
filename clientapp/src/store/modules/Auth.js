@@ -1,7 +1,6 @@
 // initial state
 const state = () => ({
   all: [],
-  authorName: 'Maniruzzaman Akash'
 });
 
 // getters

@@ -14,20 +14,21 @@ export default {
       default: 0,
     },
   },
-
+data(){
+  return{
+    togglePassword:'password'
+  }
+},
   computed: { ...mapGetters(["isDeleting", "deletedData"]) },
 
   methods: {
     ...mapActions(["deleteProduct", "fetchAllProducts"]),
     showPassword() {
-      console.log("show password");
-      var x = document.getElementById("password");
-      console.log(x);
-
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
+      if(this.togglePassword=='password'){
+        this.togglePassword='text'
+      }
+      else if(this.togglePassword=='text'){
+        this.togglePassword='password'
       }
     },
 
@@ -74,9 +75,9 @@ export default {
 
       <div class="">
 
-        <input class="textPass" id="password" type="password" 
+        <input class="textPass" id="password" :type="togglePassword" 
           disabled
-         v-model="product.password" />
+         v-model="product.password"  />
         <!-- show passord and hide -->
         <i class="fa fa-eye" aria-hidden="true" @click="showPassword()"></i>
 

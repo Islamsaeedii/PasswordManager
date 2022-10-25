@@ -42,24 +42,16 @@ const actions = {
     // }
 
     commit('setProductIsLoading', true);
-    // let url = `${process.env.VUE_APP_API_URL}products?page=${page}`;
     let url = `http://localhost:5000/api/User/${Cookies.get('userId')}`;
-    // if (search === null) {
-    //   url = `${url}?page=${page}`;
-    // } else {
-    //   url = `${process.env.VUE_APP_API_URL}products/view/search?search=${search}&page=${page}`
-    // }
 
     await axios.get(url)
       .then(res => {
         const products = res.data;
-        // const products = res.data.data.data;
         commit('setProducts', products);
         const pagination = {
-          total: res.data.data.total,  // total number of elements or items
-          per_page: res.data.data.per_page, // items per page
-          current_page: res.data.data.current_page, // current page (it will be automatically updated when users clicks on some page number).
-          total_pages: res.data.data.last_page // total pages in record
+          total: res.data.data.total,  
+          per_page: res.data.data.per_page, 
+          current_page: res.data.data.current_page, 
         }
         res.data.data.pagination = pagination;
         commit('setProductsPaginated', res.data.data);
@@ -94,8 +86,6 @@ const actions = {
     )
       .then(res => {
         console.log("res of create", res)
-        // commit('saveNewProducts', res.data.data);
-        // commit('setProductIsCreating', false);
       }).catch(err => {
         console.log('error', err);
         commit('setProductIsCreating', false);
@@ -152,7 +142,6 @@ const actions = {
         }
       }
     )
-      // await axios.delete(`${process.env.VUE_APP_API_URL}products/${id}`)
       .then(res => {
         commit('setDeleteProduct', res.data);
         commit('setProductIsDeleting', false);
