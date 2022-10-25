@@ -31,8 +31,15 @@ namespace Application.Details
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var Info = await _context.information.FindAsync(request.Info.Id);
-                if (Info == null) return null;
-                _mapper.Map(request.Info, Info);
+                var information = new EditDto
+                {
+                    Id = request.Info.Id,
+                    Url = request.Info.Url,
+                    Description = request.Info.Description,
+                    Email = request.Info.Email,
+                    Password = EncryptDecryptManager.Encrypt(request.Info.Password)
+                };
+                _mapper.Map(information, Info);
                 var result = await _context.SaveChangesAsync() > 0;
                 if (!result) return Result<Unit>.Failure("Failed to update Information");
                 return Result<Unit>.Success(Unit.Value);
