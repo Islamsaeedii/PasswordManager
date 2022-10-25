@@ -1,22 +1,19 @@
 <template>
-  <div class="container">
-    <div class="card">
-      <div class="card-header">
-        <h6>Edit Info</h6>
-        <form  class="login">
-            <input type="email" placeholder="E-mail" v-model="accounts.email">
 
-            <input type="password" placeholder="Password" v-model="accounts.password" />
+  <div class="card-header">
+    <h6>Edit Info</h6>
+    <form class="login">
+      <input type="email" required placeholder="E-mail" v-model="accounts.email">
 
-            <input type="text" placeholder="url" v-model="accounts.url" />
+      <input type="password" required placeholder="Password" v-model="accounts.password" />
 
-            <input type="text" placeholder="description" v-model="accounts.description" />
-          
-            <button class="submit" type="submit" @click.prevent="onSubmit">submit</button>
-        </form>
-      </div>
-      
-    </div>
+      <input type="text" required placeholder="url" v-model="accounts.url" />
+
+      <input type="text" required placeholder="description" v-model="accounts.description" />
+
+      <button class="submit" type="submit" @click.prevent="onSubmit">submit</button>
+    </form>
+
   </div>
 </template>
 
@@ -26,18 +23,18 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
- 
+
   },
 
 
   data() {
     return {
       id: null,
-      accounts:{
-        email:'',
-        url:'',
-        password:'',
-        description:''
+      accounts: {
+        email: '',
+        url: '',
+        password: '',
+        description: ''
       }
     };
   },
@@ -52,7 +49,7 @@ export default {
         this.$swal.fire({
           text: "Success, Product has been updated successfully !",
           icon: "success",
-          position: "top-end",
+          position: "top",
           timer: 1000,
         });
 
@@ -79,8 +76,8 @@ export default {
         password: this.accounts.password,
         url: this.accounts.url,
         description: this.accounts.description,
-        id:this.$route.params.id 
-        
+        id: this.$route.params.id
+
       });
     },
     updateProductInputAction(e) {
@@ -89,3 +86,52 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+}
+
+h6 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 25px;
+  padding-top: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+input {
+  width: 400px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+
+.submit {
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5138ED;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
+</style>

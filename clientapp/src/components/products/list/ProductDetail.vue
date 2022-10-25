@@ -19,6 +19,17 @@ export default {
 
   methods: {
     ...mapActions(["deleteProduct", "fetchAllProducts"]),
+    showPassword() {
+      console.log("show password");
+      var x = document.getElementById("password");
+      console.log(x);
+
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    },
 
     deleteProductModal(id) {
       this.$swal
@@ -52,7 +63,7 @@ export default {
 </script>
 <template>
 
-  <div class="d-flex justify-content-between border-top p-2 ">
+  <div class="d-flex justify-content-between border-top p-2 line">
     <div class="product-info-left">
       <div class="product-url">
         {{ product.url }}
@@ -60,14 +71,27 @@ export default {
       <div class="">
         <strong class="text-secondary">{{ product.email }}</strong>
       </div>
+
+      <div class="">
+
+        <input class="textPass" id="password" type="password" 
+          disabled
+         v-model="product.password" />
+        <!-- show passord and hide -->
+        <i class="fa fa-eye" aria-hidden="true" @click="showPassword()"></i>
+
+      </div>
+
+      <div class="">
+        <strong class="text-secondary">{{ product.description }}</strong>
+      </div>
+
     </div>
     <div class="product-info-right">
-      <router-link
-        :to="{ name: 'ProductEdit', params: { id: product.id } }"
-        class="btn btn-primary mr-2"
-        title="Edit Product"
-      >
+      <router-link :to="{ name: 'ProductEdit', params: { id: product.id } }" class="btn btn-primary mr-2"
+        title="Edit Product">
         <i class="fa fa-pencil" />
+
       </router-link>
       <button class="btn btn-danger mx-2" title="Delete Product" @click="deleteProductModal(product.id)">
         <i class="fa fa-trash" />
@@ -79,7 +103,24 @@ export default {
 
 
 <style scoped>
-.product-url {
+.line {
+  border-bottom: 2px solid #e0e0e0;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+
+.product-url,
+.text-secondary {
+  color: black !important;
+  font-weight: bold !important;
+}
+
+
+
+.textPass {
+  border: none;
+  background-color: transparent;
   color: black;
   font-weight: bold;
 }
